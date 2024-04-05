@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <input type="text" name="email" id="">
+        <input type="text" name="password" id="">
+
+        <input type="submit" name="" id="">
+    </form>
+</body>
+</html>
+
+<script>
+
+const form = document.querySelector('form')
+form.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    const data = JSON.stringify({
+            email: form.email.value,
+            password: form.password.value,
+        })
+
+        console.log(data)
+    fetch('http://localhost:8080/api/users/login',
+    {
+        method:'post',
+        body:data,
+        headers:{
+            "Content-Type" : "application/json"
+        }
+    })
+    .then(data=> data.json())
+    .then(data=> localStorage.setItem('jwt', JSON.stringify(data)))
+    .catch(error=> alert(error.message))
+
+})
+
+</script>
